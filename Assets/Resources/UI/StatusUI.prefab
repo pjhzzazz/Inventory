@@ -615,6 +615,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd9558a3cbca2642a08dae7e75aab22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Attack: {fileID: 536687491604253189}
+  Health: {fileID: 9222087292776824627}
+  Defense: {fileID: 7427742471397788563}
+  Critical: {fileID: 8013067386704439844}
 --- !u!1 &5097075962523993580
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,8 +27,7 @@ public class MainUI : UIBase
                 InventoryBtn.gameObject.SetActive(false); 
             }
         );
-        InventoryBtn.onClick.AddListener(()
-            =>
+        InventoryBtn.onClick.AddListener(() =>
         {
             UIManager.Instance.Open<InventoryUI>();
             StatusBtn.gameObject.SetActive(false);
