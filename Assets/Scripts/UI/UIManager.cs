@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,12 +23,27 @@ public class UIManager : MonoBehaviour
             if (_instance == null)
             {
                 _instance = new GameObject("UIManager").AddComponent<UIManager>();
+                DontDestroyOnLoad(_instance);
             }
             
             return _instance;
         }
     }
     #endregion
+
+
+    private void Awake()
+    {
+        if(_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     Dictionary<string, UIBase> _uiList = new Dictionary<string, UIBase>();
 

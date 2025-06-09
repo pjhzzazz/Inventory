@@ -8,7 +8,7 @@ public abstract class UIBase : MonoBehaviour
 {
     private CanvasGroup _cg;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _cg = GetComponent<CanvasGroup>();
     }
