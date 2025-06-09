@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-
+    public MainUI MainUI;
     private void Awake()
     {
         if(_instance != null && _instance != this)
