@@ -17,7 +17,6 @@ public class ItemSlot : MonoBehaviour
     public Item currentItem;
     private Player player;
     public bool Equipped;
-    public int Quantity;
     public InventoryUI parentInventory; 
     
     public void Initialize(InventoryUI inventory)
@@ -36,7 +35,7 @@ public class ItemSlot : MonoBehaviour
         RefreshUI();
     }
 
-    public void ClearItem( )
+    public void ClearItem()
     {
         Icon.gameObject.SetActive(false);
         QuantityText.gameObject.SetActive(false);

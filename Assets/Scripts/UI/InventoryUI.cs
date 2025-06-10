@@ -16,7 +16,7 @@ public class InventoryUI : UIBase
     
     private List<ItemSlot> itemSlots = new List<ItemSlot>();
 
-    public Player Player;
+    private Player Player;
     
     protected override void Awake()
     {
@@ -28,10 +28,15 @@ public class InventoryUI : UIBase
     }
     private void OnEnable()
     {
-        RefreshInventoryUI();
+        if (itemSlots.Count > 0) // 슬롯이 이미 생성된 경우에만
+        {
+            RefreshInventoryUI();
+        }
     }
     void Start()
     {
+        Player.addItem += InitInventoryUI;
+        Player.addItem += RefreshInventoryUI;
         exitBtn.onClick.AddListener(() =>
         {
             UIManager.Instance.Close<InventoryUI>();
@@ -41,8 +46,6 @@ public class InventoryUI : UIBase
         InitInventoryUI();
         RefreshInventoryUI();
     }
-    
-
     public void SetPlayerInfo(Player player)
     {
         Player = player;
@@ -50,7 +53,7 @@ public class InventoryUI : UIBase
     }
     private void InitInventoryUI()
     {
-        // 기존 슬롯들 제거
+        //기존 슬롯들 제거
         foreach (Transform child in ItemSlotParent)
         {
             Destroy(child.gameObject);
@@ -59,11 +62,15 @@ public class InventoryUI : UIBase
         
         for (int i = 0; i < Player.Inventory.Count; i++)
         {
-            ItemSlot newSlot = Instantiate(ItemSlotPrefab, ItemSlotParent);
-            newSlot.Initialize(this);
-            itemSlots.Add(newSlot);
+            if (i < maxSlotCount)
+            {
+                ItemSlot newSlot = Instantiate(ItemSlotPrefab, ItemSlotParent);
+                newSlot.Initialize(this);
+                itemSlots.Add(newSlot);
+            }
         }
     }
+    
     private void RefreshInventoryUI()
     {
         if (Player == null) 

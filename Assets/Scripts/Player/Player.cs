@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class InventoryItem
@@ -34,12 +35,25 @@ public class Player : MonoBehaviour
     public List<Item> Inventory { get; private set; }
     private List<Item> equippedItems;
     public Action addItem;
+    [Header("Debug")]
+    public bool DebugMode = true;
     
     private void Awake()
     {
         // STEP 6: 인벤토리 초기화
         Inventory = new List<Item>();
     }
+
+    private void Update()
+    {
+        if (!DebugMode) return;
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddRandomItem();
+        }
+    }
+
     public void InitializePlayer(string name, int level, int maxExp, float attack, float defense,float maxHealth, float critical, float gold)
     {
         Name = name;
@@ -74,5 +88,16 @@ public class Player : MonoBehaviour
             stackSize -= currentStack;
         }
         addItem?.Invoke();
+    }
+    public void AddRandomItem()
+    {
+        ItemData[] allItems = Resources.LoadAll<ItemData>("Items");
+        if (allItems.Length > 0)
+        {
+            ItemData randomItem = allItems[Random.Range(0, allItems.Length)];
+            int randomStack = Random.Range(1, randomItem.MaxStack + 1);
+            AddItem(randomItem, randomStack);
+            Debug.Log($"Added {randomStack}x {randomItem.ItemName}");
+        }
     }
 }
