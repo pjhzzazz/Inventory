@@ -10,15 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3580b70895b69443a6fc531ee29fdd7, type: 3}
-  m_Name: Item_BoneSword
+  m_Name: Item_SteelShield
   m_EditorClassIdentifier: 
-  ItemName: 
-  Description: 
+  ItemName: SteelSheild
+  Description: Defense +20
   ItemType: 0
-  ItemIcon: {fileID: 0}
-  Price: 0
+  ItemIcon: {fileID: 21300000, guid: aef9d3a0153e0480c947f53e43adb842, type: 3}
+  Price: 3000
   MaxStack: 0
   canStack: 0
-  ConsumableType: 0
-  ConsumableValue: 0
-  Equipables: []
+  Consumables: []
+  Equipables:
+  - StatType: 2
+    Value: 20
+  - StatType: 1
+    Value: 15

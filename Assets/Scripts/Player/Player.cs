@@ -1,7 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class InventoryItem
+{
+    public ItemData Data;
+    public int Quantity;
+    public bool Equipped;
+
+    public InventoryItem(ItemData data, int quantity = 1)
+    {
+        Data = data;
+        Quantity = quantity;
+        Equipped = false;
+    }
+}
 public class Player : MonoBehaviour
 {
     public string Name { get; private set; }
@@ -16,6 +31,15 @@ public class Player : MonoBehaviour
     public float Critical { get; private set;}
     public float Gold { get; private set;}
 
+    public List<Item> Inventory { get; private set; }
+    private List<Item> equippedItems;
+    public Action addItem;
+    
+    private void Awake()
+    {
+        // STEP 6: 인벤토리 초기화
+        Inventory = new List<Item>();
+    }
     public void InitializePlayer(string name, int level, int maxExp, float attack, float defense,float maxHealth, float critical, float gold)
     {
         Name = name;
@@ -29,14 +53,26 @@ public class Player : MonoBehaviour
         Critical = critical;
         Gold = gold;
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void AddItem(ItemData itemData, int stackSize = 1)
     {
-        
+        if (itemData.canStack)
+        {
+            // 기존에 같은 아이템이 있는지 확인
+            Item existingItem = Inventory.Find(item => item.itemData == itemData && item.stackSize < item.MaxStack);
+            if (existingItem != null)
+            {
+                int addAmount = Mathf.Min(stackSize, existingItem.MaxStack - existingItem.stackSize);
+                existingItem.stackSize += addAmount;
+                stackSize -= addAmount;
+            }
+        }
+        while (stackSize > 0)
+        {
+            int currentStack = itemData.canStack ? Mathf.Min(stackSize, itemData.MaxStack) : 1;
+            Inventory.Add(new Item(itemData, currentStack));
+            stackSize -= currentStack;
+        }
+        addItem?.Invoke();
     }
 }

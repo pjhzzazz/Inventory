@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public StatusUI StatusUI;
     public CharacterUI CharacterUI;
+    public InventoryUI InventoryUI;
     private void Awake()
     {
         
@@ -34,7 +35,25 @@ public class GameManager : MonoBehaviour
         }
         
         Player.InitializePlayer("Ji Hwan", 1, 10, 10, 5, 100, 10, 10000);
-
+        
+        
+        ItemData[] itemDatas = Resources.LoadAll<ItemData>("Items");
+        if (itemDatas.Length == 0)
+        {
+            Debug.LogWarning("No items found in Resources/Items folder! Creating sample items...");
+        }
+        else
+        {
+            foreach(var itemData in itemDatas)
+            {
+                if (itemData != null)
+                {
+                    Debug.Log($"Adding item: {itemData.ItemName}");
+                    Player.AddItem(itemData, 1);
+                }
+            }
+        }
+        
         UpdateUI();
     }
 
@@ -43,7 +62,8 @@ public class GameManager : MonoBehaviour
         if (Player != null)
         {
             CharacterUI.SetPlayerInfo(Player);
-            StatusUI.SetStatus(Player);
+            StatusUI.SetStatus(Player); 
+            InventoryUI.SetPlayerInfo(Player);
         }
     }
     

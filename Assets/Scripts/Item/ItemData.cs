@@ -21,6 +21,13 @@ public enum ConsumableType
     Health,
     Mana
 }
+
+[System.Serializable]
+public class ItemDataConsumable
+{
+    public ConsumableType consumableType;
+    public float value;
+}
 [System.Serializable]
 public class ItemDataEquipable
 {
@@ -40,9 +47,7 @@ public class ItemData : ScriptableObject
     public int MaxStack;
     public bool canStack;
 
-    [Header("Consumable")]
-    public ConsumableType ConsumableType;
-    public int ConsumableValue;
+    [Header("Consumable")] public ItemDataConsumable[] Consumables;
 
     
     [Header("Equipable")]

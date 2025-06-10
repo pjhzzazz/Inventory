@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Shield
   Description: Defense +10
-  ItemType: 1
+  ItemType: 0
   ItemIcon: {fileID: 21300000, guid: 87a609c41341f4b6b947ee505504123c, type: 3}
-  Price: 2000
+  Price: 1000
   MaxStack: 0
   canStack: 0
-  ConsumableType: 0
-  ConsumableValue: 0
-  Equipables: []
+  Consumables: []
+  Equipables:
+  - StatType: 2
+    Value: 10
