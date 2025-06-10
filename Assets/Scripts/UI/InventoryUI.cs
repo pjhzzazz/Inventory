@@ -28,14 +28,10 @@ public class InventoryUI : UIBase
     }
     private void OnEnable()
     {
-        if (Player != null)
-        {
-            RefreshInventoryUI();
-        }
+        RefreshInventoryUI();
     }
     void Start()
     {
-        this.gameObject.SetActive(false);
         exitBtn.onClick.AddListener(() =>
         {
             UIManager.Instance.Close<InventoryUI>();
@@ -43,6 +39,7 @@ public class InventoryUI : UIBase
             UIManager.Instance.MainUI.InventoryBtn.gameObject.SetActive(true); 
         });
         InitInventoryUI();
+        RefreshInventoryUI();
     }
     
 
@@ -71,13 +68,13 @@ public class InventoryUI : UIBase
     {
         if (Player == null) 
         {
-            Debug.LogWarning("CurrentPlayer is null!");
+            Debug.Log("Player is null!");
             return;
         }
 
         if (Player.Inventory == null)
         {
-            Debug.LogWarning("Player inventory is null!");
+            Debug.Log("Player inventory is null!");
             return;
         }
 
@@ -93,25 +90,7 @@ public class InventoryUI : UIBase
         var items = Player.Inventory;
         for (int i = 0; i < items.Count && i < itemSlots.Count; i++)
         {
-            Debug.Log($"Setting slot {i} with item: {items[i]?.Name ?? "null"}");
             itemSlots[i].SetItem(items[i]);
         }
     }
-
-    // public void AddItem()
-    // {
-    //     RefreshInventoryUI();
-    // }
-    
-    // ItemSlot GetItemSlot(ItemData data)
-    // {
-    //     return null;
-    // }
-    //
-    // ItemSlot GetEmptySlot()
-    // {
-    //     return null;
-    // }
-    
-    
 }

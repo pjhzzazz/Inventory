@@ -111,14 +111,4 @@ public class ItemSlot : MonoBehaviour
     //     throw new System.NotImplementedException();
     // }
 
-    // public ItemData GetItem()
-    // {
-    //     return Item;
-    // }
-    //
-    // public int GetQuantity()
-    // {
-    //     return Quantity;
-    // }
-    
 }

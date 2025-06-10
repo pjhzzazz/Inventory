@@ -10,19 +10,11 @@ public class GameManager : MonoBehaviour
     public StatusUI StatusUI;
     public CharacterUI CharacterUI;
     public InventoryUI InventoryUI;
-    private void Awake()
-    {
-        
-    }
+
 
     void Start()
     {
          SetData();
-    }
-    
-    void Update()
-    {
-
     }
 
     public void SetData()
@@ -40,7 +32,7 @@ public class GameManager : MonoBehaviour
         ItemData[] itemDatas = Resources.LoadAll<ItemData>("Items");
         if (itemDatas.Length == 0)
         {
-            Debug.LogWarning("No items found in Resources/Items folder! Creating sample items...");
+            Debug.LogWarning("No items");
         }
         else
         {
@@ -48,7 +40,7 @@ public class GameManager : MonoBehaviour
             {
                 if (itemData != null)
                 {
-                    Debug.Log($"Adding item: {itemData.ItemName}");
+                    Debug.Log($"Add item: {itemData.ItemName}");
                     Player.AddItem(itemData, 1);
                 }
             }
