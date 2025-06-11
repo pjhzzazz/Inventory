@@ -9,7 +9,6 @@ public class Item
     public int stackSize;
     public bool IsEquipped { get; set; }
     
-    // ItemData의 속성들에 쉽게 접근하기 위한 프로퍼티들
     public string Name => itemData.ItemName;
     public string Description => itemData.Description;
     public ItemType Type => itemData.ItemType;
@@ -35,35 +34,18 @@ public class Item
             switch (consumable.consumableType)
             {
                 case ConsumableType.Health:
-                    
+                    player.Heal(consumable.value);
                     break;
                 case ConsumableType.Mana:
                     
                     break;
             }
         }
-        
-        // 스택 감소
+
         stackSize--;
     }
     
     // 장착 가능한 아이템의 스탯 정보 가져오기
-    public Dictionary<StatType, float> GetStat()
-    {
-        var stats = new Dictionary<StatType, float>();
-        
-        if (itemData.ItemType == ItemType.Equipable)
-        {
-            foreach (var equipable in itemData.Equipables)
-            {
-                if (stats.ContainsKey(equipable.StatType))
-                    stats[equipable.StatType] += equipable.Value;
-                else
-                    stats[equipable.StatType] = equipable.Value;
-            }
-        }
-        
-        return stats;
-    }
+    
 }
 

@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
     
     private void Awake()
     {
-        // STEP 6: 인벤토리 초기화
         Inventory = new List<Item>();
     }
 
@@ -100,4 +99,10 @@ public class Player : MonoBehaviour
             Debug.Log($"Added {randomStack}x {randomItem.ItemName}");
         }
     }
+    
+    public void Heal(float amount)
+    {
+        CurrentHealth += amount;
+    }
+    
 }

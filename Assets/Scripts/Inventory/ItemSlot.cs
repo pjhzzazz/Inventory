@@ -16,9 +16,12 @@ public class ItemSlot : MonoBehaviour
     public Item currentItem;
     public bool Equipped;
     public InventoryUI parentInventory;
+    private Player player;
+    
     public void Initialize(InventoryUI inventory)
     {
         parentInventory = inventory;
+        player = FindObjectOfType<Player>();
     }
     private void OnEnable()
     {
@@ -126,10 +129,10 @@ public class ItemSlot : MonoBehaviour
         switch (currentItem.Type)
         {
             case ItemType.Consumable:
-
+                currentItem.Use(player);
                 break;
             case ItemType.Equipable :
-
+                //player.Equip(currentItem);
                 break;
         }
     }

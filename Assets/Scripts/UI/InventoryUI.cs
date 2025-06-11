@@ -35,7 +35,7 @@ public class InventoryUI : UIBase
     }
     void Start()
     {
-        Player.addItem += InitInventoryUI;
+        Player.addItem += InitInventoryUI; 
         Player.addItem += RefreshInventoryUI;
         exitBtn.onClick.AddListener(() =>
         {
