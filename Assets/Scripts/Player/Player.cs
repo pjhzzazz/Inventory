@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     public List<Item> Inventory { get; private set; }
     private List<Item> equippedItems;
     public Action addItem;
+    public Action<Player> onStatsChanged;
     [Header("Debug")]
     public bool DebugMode = true;
     
@@ -105,14 +106,15 @@ public class Player : MonoBehaviour
         }
     }
     
-    private void Heal(float amount)
+    private float Heal(float amount)
     {
-        CurrentHealth += amount;
+        
+        return Mathf.Min(CurrentHealth + amount, MaxHealth);
     }
 
-    private void Restore(float amount)
+    private float Restore(float amount)
     {
-        CurrentMana += amount;
+        return Mathf.Min(CurrentMana + amount, MaxMana);
     }
     public void UseConsumable(Item item)
     {
@@ -144,6 +146,7 @@ public class Player : MonoBehaviour
         if (item.IsEquipped)
         {
             UnequipItem(item);
+            return;
         }
         foreach (var equipable in item.itemData.Equipables)
         {
@@ -167,6 +170,7 @@ public class Player : MonoBehaviour
         }
         item.IsEquipped = true;
         equippedItems.Add(item);
+        onStatsChanged?.Invoke(this);
     }
     
     public void UnequipItem(Item item)
@@ -194,5 +198,12 @@ public class Player : MonoBehaviour
         }
         item.IsEquipped = false;
         equippedItems.Remove(item);
+        onStatsChanged?.Invoke(this);
+    }
+
+    private void OnDestroy()
+    {
+        addItem = null;
+        onStatsChanged = null;
     }
 }
