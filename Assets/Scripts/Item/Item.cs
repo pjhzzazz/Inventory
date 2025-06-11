@@ -25,25 +25,7 @@ public class Item
     }
     
     // 소모품 사용
-    public void Use(Player player)
-    {
-        if (itemData.ItemType != ItemType.Consumable) return;
-        
-        foreach (var consumable in itemData.Consumables)
-        {
-            switch (consumable.consumableType)
-            {
-                case ConsumableType.Health:
-                    player.Heal(consumable.value);
-                    break;
-                case ConsumableType.Mana:
-                    
-                    break;
-            }
-        }
-
-        stackSize--;
-    }
+    
     
     // 장착 가능한 아이템의 스탯 정보 가져오기
     

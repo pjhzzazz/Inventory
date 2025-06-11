@@ -129,10 +129,12 @@ public class ItemSlot : MonoBehaviour
         switch (currentItem.Type)
         {
             case ItemType.Consumable:
-                currentItem.Use(player);
+                player.UseConsumable(currentItem);
+                RefreshUI();
                 break;
             case ItemType.Equipable :
-                //player.Equip(currentItem);
+                player.Equip(currentItem);
+                RefreshUI();
                 break;
         }
     }

@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     public float MaxHealth { get; private set; }
     public float Critical { get; private set;}
     public float Gold { get; private set;}
+    public float CurrentMana { get; private set;}
+    public float MaxMana { get; private set;}
 
     public List<Item> Inventory { get; private set; }
     private List<Item> equippedItems;
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Inventory = new List<Item>();
+        equippedItems = new List<Item>();
     }
 
     private void Update()
@@ -53,7 +56,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void InitializePlayer(string name, int level, int maxExp, float attack, float defense,float maxHealth, float critical, float gold)
+    public void InitializePlayer(string name, int level, int maxExp, float attack, float defense,float maxHealth, float critical, float gold, float maxMana)
     {
         Name = name;
         Level = level;
@@ -63,6 +66,8 @@ public class Player : MonoBehaviour
         Defense = defense;
         CurrentHealth = maxHealth;
         MaxHealth = maxHealth;
+        CurrentMana = maxMana;
+        MaxMana = maxMana;
         Critical = critical;
         Gold = gold;
     }
@@ -100,9 +105,94 @@ public class Player : MonoBehaviour
         }
     }
     
-    public void Heal(float amount)
+    private void Heal(float amount)
     {
         CurrentHealth += amount;
     }
+
+    private void Restore(float amount)
+    {
+        CurrentMana += amount;
+    }
+    public void UseConsumable(Item item)
+    {
+        if (item.itemData.ItemType != ItemType.Consumable) return;
+        
+        foreach (var consumable in item.itemData.Consumables)
+        {
+            switch (consumable.consumableType)
+            {
+                case ConsumableType.Health:
+                    Heal(consumable.value);
+                    break;
+                case ConsumableType.Mana:
+                    Restore(consumable.value);
+                    break;
+            }
+        }
+
+        item.stackSize--;
+        if (item.stackSize <= 0)
+        {
+            Inventory.Remove(item);
+            addItem?.Invoke();
+        }
+    }
+
+    public void Equip(Item item)
+    {
+        if (item.IsEquipped)
+        {
+            UnequipItem(item);
+        }
+        foreach (var equipable in item.itemData.Equipables)
+        {
+            switch (equipable.StatType)
+            {
+                case StatType.Attack:
+                    Attack += equipable.Value;
+                    break;
+                case StatType.Health:
+                    MaxHealth += equipable.Value;
+                    break;
+                case StatType.Defense:
+                    Defense += equipable.Value;
+                    break;
+                case StatType.Critical:
+                    Critical += equipable.Value;
+                    break;
+                default:
+                    break;
+            }
+        }
+        item.IsEquipped = true;
+        equippedItems.Add(item);
+    }
     
+    public void UnequipItem(Item item)
+    {
+        if (!item.IsEquipped) return;
+        foreach (var equipable in item.itemData.Equipables)
+        {
+            switch (equipable.StatType)
+            {
+                case StatType.Attack:
+                    Attack -= equipable.Value;
+                    break;
+                case StatType.Health:
+                    MaxHealth -= equipable.Value;
+                    break;
+                case StatType.Defense:
+                    Defense -= equipable.Value;
+                    break;
+                case StatType.Critical:
+                    Critical -= equipable.Value;
+                    break;
+                default:
+                    break;
+            }
+        }
+        item.IsEquipped = false;
+        equippedItems.Remove(item);
+    }
 }

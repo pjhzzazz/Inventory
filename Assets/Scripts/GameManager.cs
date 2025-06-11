@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             Player = playerObj.AddComponent<Player>();
         }
         
-        Player.InitializePlayer("Ji Hwan", 1, 10, 10, 5, 100, 10, 10000);
+        Player.InitializePlayer("Ji Hwan", 1, 10, 10, 5, 100, 10, 10000, 100);
         
         
         ItemData[] itemDatas = Resources.LoadAll<ItemData>("Items");

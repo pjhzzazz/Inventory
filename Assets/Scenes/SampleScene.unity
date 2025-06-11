@@ -1017,6 +1017,7 @@ MonoBehaviour:
   PlayerLevel: {fileID: 350210469}
   PlayerExp: {fileID: 809104458}
   PlayerGold: {fileID: 1291814509}
+  ExpBar: {fileID: 2085517778}
 --- !u!1 &809104456
 GameObject:
   m_ObjectHideFlags: 0
