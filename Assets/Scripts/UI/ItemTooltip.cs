@@ -12,12 +12,12 @@ public class ItemTooltip : UIBase
     public TextMeshProUGUI ItemPrice;
 
     public RectTransform TooltipPanel;
-    private Canvas parentCanvas;
+    private Canvas Canvas;
     
     protected override void Awake()
     {
         base.Awake();
-        parentCanvas = GetComponent<Canvas>();
+        Canvas = GetComponent<Canvas>();
     }
     
     public void ShowTooltip(Item item, Vector2 mousePosition)

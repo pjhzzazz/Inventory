@@ -25,27 +25,27 @@ public class Item
         IsEquipped = false;
     }
     
-    // // 소모품 사용
-    // public void Use(Player player)
-    // {
-    //     if (itemData.ItemType != ItemType.Consumable) return;
-    //     
-    //     foreach (var consumable in itemData.Consumables)
-    //     {
-    //         switch (consumable.consumableType)
-    //         {
-    //             case ConsumableType.Health:
-    //                 character.RestoreHealth((int)consumable.value);
-    //                 break;
-    //             case ConsumableType.Mana:
-    //                 character.RestoreMana((int)consumable.value);
-    //                 break;
-    //         }
-    //     }
-    //     
-    //     // 스택 감소
-    //     stackSize--;
-    // }
+    // 소모품 사용
+    public void Use(Player player)
+    {
+        if (itemData.ItemType != ItemType.Consumable) return;
+        
+        foreach (var consumable in itemData.Consumables)
+        {
+            switch (consumable.consumableType)
+            {
+                case ConsumableType.Health:
+                    
+                    break;
+                case ConsumableType.Mana:
+                    
+                    break;
+            }
+        }
+        
+        // 스택 감소
+        stackSize--;
+    }
     
     // 장착 가능한 아이템의 스탯 정보 가져오기
     public Dictionary<StatType, float> GetStat()

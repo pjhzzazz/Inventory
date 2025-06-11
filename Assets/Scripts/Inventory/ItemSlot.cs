@@ -115,10 +115,22 @@ public class ItemSlot : MonoBehaviour
         }
         else if (eventData.clickCount == 2)
         {
-            //Equip();
-            //Consume();
+            OnDoubleClick();
         }
     }
- 
-    
+
+    private void OnDoubleClick()
+    {
+        if(currentItem == null) return;
+
+        switch (currentItem.Type)
+        {
+            case ItemType.Consumable:
+
+                break;
+            case ItemType.Equipable :
+
+                break;
+        }
+    }
 }
