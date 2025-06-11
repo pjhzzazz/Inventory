@@ -61,6 +61,5 @@ public class StatusUI : UIBase
         Defense.text = $"Defense \n {player.Defense:F1}";
         Critical.text = $"Critical \n {player.Critical:F1}";
     }
-    
-    
+
 }
