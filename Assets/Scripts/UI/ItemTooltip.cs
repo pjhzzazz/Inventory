@@ -19,19 +19,7 @@ public class ItemTooltip : UIBase
         base.Awake();
         parentCanvas = GetComponent<Canvas>();
     }
-
-    void Start()
-   
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void ShowTooltip(Item item, Vector2 mousePosition)
     {
         // 아이템 정보 설정
@@ -40,7 +28,6 @@ public class ItemTooltip : UIBase
         // 위치 설정
         SetTooltipPosition(mousePosition);
         
-        // UIManager를 통해 열기 (이미 열려있다면 내용만 업데이트됨)
         if (!gameObject.activeInHierarchy)
         {
             UIManager.Instance.Open<ItemTooltip>();
@@ -56,9 +43,6 @@ public class ItemTooltip : UIBase
 
     private void SetTooltipPosition(Vector2 mousePosition)
     {
-        Vector2 tooltipSize = TooltipPanel.sizeDelta;
-        
-        // 마우스 우측 상단에 표시하기 위한 오프셋
         Vector2 offset = new Vector2(-150f, 0f);
         
         // 초기 위치 설정 (마우스 위치 + 오프셋)

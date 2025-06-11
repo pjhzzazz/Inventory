@@ -89,7 +89,7 @@ public class ItemSlot : MonoBehaviour
         if (currentItem != null)
         {
             // UIManager를 통해 툴팁 가져오기
-            if (UIManager.Instance.TryGet<ItemTooltip>(out ItemTooltip tooltip))
+            if (UIManager.Instance.TryGet(out ItemTooltip tooltip))
             {
                 tooltip.ShowTooltip(currentItem, eventData.position);
             }
@@ -97,7 +97,7 @@ public class ItemSlot : MonoBehaviour
             {
                 // 툴팁이 없다면 새로 생성
                 UIManager.Instance.Open<ItemTooltip>();
-                if (UIManager.Instance.TryGet<ItemTooltip>(out tooltip))
+                if (UIManager.Instance.TryGet(out tooltip))
                 {
                     tooltip.ShowTooltip(currentItem, eventData.position);
                 }
@@ -107,7 +107,7 @@ public class ItemSlot : MonoBehaviour
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (UIManager.Instance.TryGet<ItemTooltip>(out ItemTooltip tooltip))
+        if (UIManager.Instance.TryGet(out ItemTooltip tooltip))
         {
             tooltip.HideTooltip();
         }
