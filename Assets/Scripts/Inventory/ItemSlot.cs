@@ -14,17 +14,11 @@ public class ItemSlot : MonoBehaviour
     public TextMeshProUGUI EquippedText;
 
     public Item currentItem;
-    private Player player;
     public bool Equipped;
     public InventoryUI parentInventory;
-    private ItemTooltip itemTooltip;
     public void Initialize(InventoryUI inventory)
     {
         parentInventory = inventory;
-        
-        player = FindObjectOfType<Player>();
-        itemTooltip = FindObjectOfType<ItemTooltip>();
-        
     }
     private void OnEnable()
     {
