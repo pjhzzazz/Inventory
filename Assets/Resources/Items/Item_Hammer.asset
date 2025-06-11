@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Item_Hammer
   m_EditorClassIdentifier: 
   ItemName: Hammer
-  Description: Attack +20
-  ItemType: 0
+  Description: Attack +30 Critical +20
+  ItemType: 1
   ItemIcon: {fileID: 21300000, guid: dfe1969143b334f5e93fd704efd115f8, type: 3}
   Price: 3000
   MaxStack: 0

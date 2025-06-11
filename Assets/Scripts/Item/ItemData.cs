@@ -48,7 +48,6 @@ public class ItemData : ScriptableObject
     public bool canStack;
 
     [Header("Consumable")] public ItemDataConsumable[] Consumables;
-
     
     [Header("Equipable")]
     public ItemDataEquipable[] Equipables;

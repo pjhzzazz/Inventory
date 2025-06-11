@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Pickax
   Description: Attack +5
-  ItemType: 0
+  ItemType: 1
   ItemIcon: {fileID: 21300000, guid: 77f007adb6f4340dbb563f91765527ad, type: 3}
   Price: 500
   MaxStack: 0

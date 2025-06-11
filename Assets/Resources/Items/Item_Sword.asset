@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Item_Sword
   m_EditorClassIdentifier: 
   ItemName: Sword
-  Description: Attack +10
-  ItemType: 0
+  Description: Attack +20
+  ItemType: 1
   ItemIcon: {fileID: 21300000, guid: 5ae15fafb616545c0a3dac68957ebe03, type: 3}
   Price: 1000
   MaxStack: 0

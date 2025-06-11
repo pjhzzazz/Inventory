@@ -7,8 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
-    // , IPointerEnterHandler, IPointerExitHandler,
-    // IPointerClickHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
+     , IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public Image Icon;
     public TextMeshProUGUI QuantityText;
@@ -17,11 +16,15 @@ public class ItemSlot : MonoBehaviour
     public Item currentItem;
     private Player player;
     public bool Equipped;
-    public InventoryUI parentInventory; 
-    
+    public InventoryUI parentInventory;
+    private ItemTooltip itemTooltip;
     public void Initialize(InventoryUI inventory)
     {
         parentInventory = inventory;
+        
+        player = FindObjectOfType<Player>();
+        itemTooltip = FindObjectOfType<ItemTooltip>();
+        
     }
     private void OnEnable()
     {
@@ -32,6 +35,10 @@ public class ItemSlot : MonoBehaviour
     public void SetItem(Item Item)
     {
         currentItem = Item;
+        if (currentItem != null)
+        {
+            Equipped = currentItem.IsEquipped;
+        }
         RefreshUI();
     }
 
@@ -40,6 +47,8 @@ public class ItemSlot : MonoBehaviour
         Icon.gameObject.SetActive(false);
         QuantityText.gameObject.SetActive(false);
         EquippedText.gameObject.SetActive(false);
+        currentItem = null;
+        Equipped = false;
     }
 
     public void RefreshUI()
@@ -71,43 +80,51 @@ public class ItemSlot : MonoBehaviour
                 QuantityText.gameObject.SetActive(false);
             }
         }
+        
+        Equipped = currentItem.IsEquipped;
+        EquippedText.gameObject.SetActive(Equipped);
     }
-    // public void OnPointerEnter(PointerEventData eventData)
-    // {
-    //     
-    // }
-    //
-    // public void OnPointerExit(PointerEventData eventData)
-    // {
-    //     throw new System.NotImplementedException();
-    // }
-    //
-    // public void OnPointerClick(PointerEventData eventData)
-    // {
-    //     if (eventData.clickCount == 1)
-    //     {
-    //
-    //     }
-    //     else if (eventData.clickCount == 2)
-    //     {
-    //         //Equip();
-    //         //Consume();
-    //     }
-    // }
-    //
-    // public void OnBeginDrag(PointerEventData eventData)
-    // {
-    //     throw new System.NotImplementedException();
-    // }
-    //
-    // public void OnDrag(PointerEventData eventData)
-    // {
-    //     throw new System.NotImplementedException();
-    // }
-    //
-    // public void OnEndDrag(PointerEventData eventData)
-    // {
-    //     throw new System.NotImplementedException();
-    // }
-
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (currentItem != null)
+        {
+            // UIManager를 통해 툴팁 가져오기
+            if (UIManager.Instance.TryGet<ItemTooltip>(out ItemTooltip tooltip))
+            {
+                tooltip.ShowTooltip(currentItem, eventData.position);
+            }
+            else
+            {
+                // 툴팁이 없다면 새로 생성
+                UIManager.Instance.Open<ItemTooltip>();
+                if (UIManager.Instance.TryGet<ItemTooltip>(out tooltip))
+                {
+                    tooltip.ShowTooltip(currentItem, eventData.position);
+                }
+            }
+        }
+    }
+    
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (UIManager.Instance.TryGet<ItemTooltip>(out ItemTooltip tooltip))
+        {
+            tooltip.HideTooltip();
+        }
+    }
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.clickCount == 1)
+        {
+    
+        }
+        else if (eventData.clickCount == 2)
+        {
+            //Equip();
+            //Consume();
+        }
+    }
+ 
+    
 }

@@ -48,7 +48,7 @@ public class Item
     // }
     
     // 장착 가능한 아이템의 스탯 정보 가져오기
-    public Dictionary<StatType, float> GetStatModifiers()
+    public Dictionary<StatType, float> GetStat()
     {
         var stats = new Dictionary<StatType, float>();
         

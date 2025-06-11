@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: BoneSword
   Description: Attack +20
-  ItemType: 0
+  ItemType: 1
   ItemIcon: {fileID: 21300000, guid: 8f791eefc8f9f415f8b75c1065063daa, type: 3}
   Price: 2000
   MaxStack: 0
